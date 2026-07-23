@@ -1,0 +1,413 @@
+@import url("https://fonts.googleapis.com/css2?family=Dokdo&family=East+Sea+Dokdo&family=Rubik+Wet+Paint&display=swap");
+
+/* 전체 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "East Sea Dokdo", sans-serif;
+  font-weight: 550;
+  font-style: normal;
+}
+
+/* 배경 컨테이너 설정 */
+.horror-background {
+  position: fixed; /* 화면에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* 콘텐츠보다 뒤에 위치 */
+}
+
+/* 두 레이어의 공통 스타일 */
+.eyes-open,
+.eyes-closed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* 화면을 꽉 채움 */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 눈을 뜨고 있는 기본 대시보드 이미지 */
+.eyes-open {
+  background-image: url("background.jfif"); /* 사용자분의 원본 파일 경로 */
+  opacity: 1; /* 평소에는 완전히 보임 */
+}
+
+/* 눈을 감고 있는 대시보드 이미지 (기본적으로 투명) */
+.eyes-closed {
+  background-image: url("background2.png"); /* 제가 만들어 드린 파일 경로 */
+  opacity: 0; /* 평소에는 안 보임 */
+  /* 애니메이션 적용: blink라는 애니메이션을 5초마다 무한 반복 */
+  animation: dashboardBlink 5s infinite;
+}
+
+/* 대시보드 UI 콘텐츠 스타일 (테이블 등) */
+.dashboard-content {
+  position: relative;
+  z-index: 1; /* 배경보다 위에 표시 */
+  /* 테이블이나 버튼의 CSS는 이 안에 작성하세요 */
+}
+
+/* --- 대시보드 눈 깜박임 CSS 애니메이션 정의 --- */
+@keyframes dashboardBlink {
+  /* 0% ~ 90% (대부분의 시간): 눈을 뜨고 있음 (감은 이미지가 투명) */
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+
+  /* 91% (깜박이기 시작): 순식간에 불투명해짐 (감은 이미지가 보임) */
+  91% {
+    opacity: 1;
+  }
+
+  /* 93% (감은 상태 유지): 아주 짧게 감은 상태 유지 */
+  93% {
+    opacity: 1;
+  }
+
+  /* 95% ~ 100% (다시 뜨기): 빠르게 다시 투명해짐 (원본 이미지가 보임) */
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Malgun Gothic", sans-serif;
+  background-image: url(/background.jfif);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #ab1c1c;
+  font-size: 22px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 링크 */
+a {
+  text-decoration: none;
+  color: #ab1c1c;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 40px;
+  text-decoration: none;
+  margin-right: auto;
+  color: #ab1c1c;
+}
+
+/* 제목 */
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+/* 버튼 */
+.button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  color: #ab1c1c;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+}
+
+.button:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(144, 8, 8, 0.8);
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.somebtn {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.somebtn:hover {
+  color: #ffffff;
+  box-shadow:
+    0 0 15px rgba(176, 2, 2, 0.6),
+    inset 0 0 12px rgba(157, 5, 5, 0.5);
+  text-shadow: 0 0 8px rgba(144, 8, 8, 0.8);
+  transform: translateY(-1px);
+}
+
+/* 게시판 테이블 */
+table {
+  width: 85%;
+  border-collapse: collapse;
+  background: rgba(10, 5, 5, 0.75);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.9),
+    inset 0 0 15px rgba(139, 0, 0, 0.2);
+}
+
+th,
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(80, 0, 0, 0.5);
+  text-align: center;
+}
+
+th {
+  background: rgba(30, 0, 0, 0.85);
+  color: #e6b8b8;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-bottom: 2px solid rgba(178, 34, 34, 0.7);
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+tr {
+  transition: all 0.3s ease;
+}
+
+/* 마우스 호버 시 핏빛 하이라이트 및 글로우 효과 */
+tr:hover {
+  background: rgba(80, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.111);
+  color: #ffffff;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+  width: 40%;
+  padding: 10px;
+  border: 1px solid rgba(139, 0, 0, 0.6);
+  border-radius: 4px;
+  background: rgba(20, 5, 5, 0.85);
+  color: #ab1c1c;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+input[type="submit"] {
+  margin-top: 15px;
+}
+
+label {
+  width: 500px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 22px;
+}
+.form-container {
+  width: 500px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.form-container label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+}
+
+.form-container textarea {
+  width: 100%;
+  min-height: 300px;
+
+  padding: 10px;
+
+  border: 1px solid rgba(139, 0, 0, 0.6);
+  border-radius: 4px;
+
+  background: rgba(20, 5, 5, 0.85);
+  color: #ab1c1c;
+
+  box-sizing: border-box;
+  font-size: 20px;
+
+  resize: vertical;
+}
+
+/* ==========================
+   글 읽기 페이지
+========================== */
+
+.post-container {
+  width: 800px;
+  max-width: 90%;
+  margin: 30px auto;
+
+  background: rgba(10, 5, 5, 0.75);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+
+  padding: 25px;
+
+  backdrop-filter: blur(4px);
+
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.9),
+    inset 0 0 15px rgba(139, 0, 0, 0.2);
+}
+
+.post-info {
+  margin: 20px 0;
+
+  display: flex;
+  gap: 20px;
+
+  color: #c8a0a0;
+
+  border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+
+  padding-bottom: 10px;
+}
+
+.post-content {
+  min-height: 300px;
+
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+
+  color: #e6b8b8;
+}
+
+/* 버튼 영역 */
+
+.button-wrap {
+  width: 85%;
+  margin: 5px 10px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+select {
+  background-color: #111;
+  color: #7a0000;
+  border: 1px solid #7a0000;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  padding: 8px 12px;
+  font-size: 20px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+select:hover {
+  border-color: #b30000;
+  box-shadow: 0 0 8px rgba(179, 0, 0, 0.5);
+}
+
+select:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+select option {
+  background-color: #111;
+  color: #7a0000;
+}
+
+.search-input {
+  background-color: #111;
+  color: #d4d4d4;
+  border: 1px solid #7a0000;
+  border-radius: 2px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  width: 300px;
+  height: 40px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.search-input:hover {
+  border-color: #b30000;
+  box-shadow: 0 0 8px rgba(179, 0, 0, 0.5);
+}
+
+.search-input:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-btn {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.page-btn:hover {
+  border-color: #840404;
+
+  box-shadow:
+    0 0 15px rgba(255, 0, 0, 0.5),
+    inset 0 0 10px rgba(255, 0, 0, 0.2);
+
+  transform: translateY(-2px);
+}
+
+.page-btn.active {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  color: white;
+}
