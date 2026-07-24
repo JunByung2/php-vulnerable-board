@@ -10,51 +10,39 @@
   font-style: normal;
 }
 
-/* 배경 컨테이너 설정 */
-.horror-background {
-  position: fixed; /* 화면에 고정 */
+/* ==========================
+   눈 깜빡임 배경 (body 가상요소로 처리)
+   -> 별도 HTML div 필요없이 body만 있으면 바로 적용됨
+========================== */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2; /* 콘텐츠보다 뒤에 위치 */
-}
-
-/* 두 레이어의 공통 스타일 */
-.eyes-open,
-.eyes-closed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover; /* 화면을 꽉 채움 */
+  z-index: -2;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none; /* 클릭/이벤트 막지 않도록 */
 }
 
-/* 눈을 뜨고 있는 기본 대시보드 이미지 */
-.eyes-open {
-  background-image: url("background.jfif"); /* 사용자분의 원본 파일 경로 */
-  opacity: 1; /* 평소에는 완전히 보임 */
+/* 눈 뜬 기본 배경 */
+body::before {
+  background-image: url("/background.jfif");
+  opacity: 1;
 }
 
-/* 눈을 감고 있는 대시보드 이미지 (기본적으로 투명) */
-.eyes-closed {
-  background-image: url("background2.png"); /* 제가 만들어 드린 파일 경로 */
-  opacity: 0; /* 평소에는 안 보임 */
-  /* 애니메이션 적용: blink라는 애니메이션을 5초마다 무한 반복 */
+/* 눈 감은 배경 (평소엔 투명, 애니메이션으로 잠깐 보임) */
+body::after {
+  background-image: url("/background2.png");
+  opacity: 0;
   animation: dashboardBlink 5s infinite;
 }
 
-/* 대시보드 UI 콘텐츠 스타일 (테이블 등) */
-.dashboard-content {
-  position: relative;
-  z-index: 1; /* 배경보다 위에 표시 */
-  /* 테이블이나 버튼의 CSS는 이 안에 작성하세요 */
-}
-
-/* --- 대시보드 눈 깜박임 CSS 애니메이션 정의 --- */
+/* --- 눈 깜박임 CSS 애니메이션 정의 --- */
 @keyframes dashboardBlink {
   /* 0% ~ 90% (대부분의 시간): 눈을 뜨고 있음 (감은 이미지가 투명) */
   0% {
@@ -88,10 +76,7 @@ body {
   margin: 0 auto;
   padding: 20px;
   font-family: "Malgun Gothic", sans-serif;
-  background-image: url(/background.jfif);
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  /* 배경은 이제 ::before/::after 가상요소가 담당하므로 여기선 지움 */
   color: #ab1c1c;
   font-size: 22px;
 }
